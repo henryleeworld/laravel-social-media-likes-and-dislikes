@@ -1,4 +1,4 @@
-# Laravel 7 社交媒體喜歡和不喜歡
+# Laravel 10 社交媒體喜歡和不喜歡
 
 社交媒體逐漸成為我們表達自我、塑造自我認同、形成和建立關係、了解周圍世界的地方。點讚帶來了不可磨滅的美好感受，激發人們欣賞、信任、共鳴、同理心等優秀特質存在。
 
@@ -20,14 +20,22 @@ $ php artisan key:generate
 ```sh
 $ php artisan migrate --seed
 ```
+- 執行安裝 Vite 和 Laravel 擴充套件引用的依賴項目。
+```sh
+$ npm install
+```
+- 執行正式環境版本化資源管道並編譯。
+```sh
+$ npm run build
+```
 - 在瀏覽器中輸入已定義的路由 URL 來訪問，例如：http://127.0.0.1:8000。
 - 你可以經由 `/` 來進行註冊或登入，登入後方可進行社交媒體喜歡和不喜歡。
 
 ----
 
 ## 畫面截圖
-![](https://i.imgur.com/lUkohrB.png)
+![](https://i.imgur.com/uu0Fpn3.png)
 > 當一個發文比平時多了一些讚，我們會想要更多，大腦中產生快感的多巴胺，不只為我們創造快樂，而是透過讚而不斷提升心理預期，讓我們更難以滿足
 
-![](https://i.imgur.com/dR6ZWtN.png)
+![](https://i.imgur.com/lq1LD2n.png)
 > 一個不經意的發現也能讓你徹夜難眠

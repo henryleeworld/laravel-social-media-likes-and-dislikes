@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">貼文（jQuery）</div>
+                <div class="card-header">{{ __('Posts') . __('(jQuery)') }}</div>
 
                 <div class="card-body">
                     @foreach($posts as $post)
@@ -16,10 +16,10 @@
                                 <hr />
                                 <div class="likes text-right" data-post-id="{{ $post->id }}">
                                     <a href="#" class="like{{ auth()->check() && $post->ratings->where('pivot.type', 'like')->count() ? ' active' : '' }}">
-                                        <i class="fa fa-thumbs-up"></i> <span class="count">{{ $post->likes_count }}</span>
+                                        <i class="fa-regular fa-thumbs-up"></i> <span class="count">{{ $post->likes_count }}</span>
                                     </a>
                                     <a href="#" class="dislike{{ auth()->check() && $post->ratings->where('pivot.type', 'dislike')->count() ? ' active' : '' }}">
-                                        <i class="fa fa-thumbs-down"></i> <span class="count">{{ $post->dislikes_count }}</span>
+                                        <i class="fa-regular fa-thumbs-down"></i> <span class="count">{{ $post->dislikes_count }}</span>
                                     </a>
                                 </div>
                             </div>
@@ -49,8 +49,8 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 $(function() {
     $('.likes a').click(function (e) {
@@ -65,35 +65,34 @@ $(function() {
                 post_id
             })
             .done((data) => {
-                var message = 'You have ' + type + 'd this post';
                 $parent.children('a').removeClass('active');
                 $parent.find('.like .count').text(data.likes);
                 $parent.find('.dislike .count').text(data.dislikes);
 
-                if (data.detached && data.unrated) {
-                    message = 'You have un' + type + 'd this post'
-                } else if (!data.detached && !data.unrated) {
+                if (!data.detached && !data.unrated) {
                     $(this).addClass('active');
                 } else if (data.detached && !data.unrated) {
                     $(this).addClass('active');
                 }
 
-                Swal.fire(
-                    '成功！',
-                    message,
-                    'success'
-                );
+                Swal.fire({
+				    title: '{{ __('Success!') }}',
+                    text: data.message,
+                    icon: 'success',
+                    confirmButtonText: '{{ __('OK') }}'
+                });
             })
             .fail(({responseJSON}) => {
                 var message = responseJSON.errors && responseJSON.errors[Object.keys(responseJSON.errors)[0]] ?
                     responseJSON.errors[Object.keys(responseJSON.errors)[0]][0] :
                     responseJSON.message;
 
-                Swal.fire(
-                    '錯誤！',
-                    message,
-                    'error'
-                );
+                Swal.fire({
+                    title: '{{ __('Error!') }}',
+                    text: message,
+                    icon: 'error',
+                    confirmButtonText: '{{ __('OK') }}'
+                });
             });
 
     });

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">貼文（Vue.js）</div>
+                <div class="card-header">{{ __('Posts') . __('(Vue.js)') }}</div>
 
                 <div class="card-body">
                     @foreach($posts as $post)

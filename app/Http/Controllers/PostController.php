@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -36,7 +36,7 @@ class PostController extends Controller
     public function ratePost(Request $request)
     {
         if (auth()->guest()) {
-            return response(['message' => 'You are not logged in. Please log in to rate post'], 401);
+            return response(['message' => __('You are not logged in. Please log in to rate post')], 401);
         }
 
         $request->validate([
@@ -59,6 +59,8 @@ class PostController extends Controller
         $likes    = $post->likes_count;
         $dislikes = $post->dislikes_count;
 
-        return response(compact('detached', 'unrated', 'likes', 'dislikes'));
+        $message = ($detached && $unrated) ? __('You have un' . $request->input('type') . 'd this post') : __('You have ' . $request->input('type') . 'd this post');
+
+        return response(compact('detached', 'dislikes', 'likes', 'message', 'unrated'));
     }
 }
