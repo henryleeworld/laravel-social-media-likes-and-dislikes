@@ -10,6 +10,11 @@ class Post extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'title',
         'full_text',
@@ -17,6 +22,9 @@ class Post extends Model
         'updated_at',
     ];
 
+    /**
+     * The ratings that belong to the post.
+     */
     public function ratings(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'post_ratings')->withPivot('type');
