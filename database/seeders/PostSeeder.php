@@ -2,20 +2,19 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Post;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class UsersTableSeeder extends Seeder
+class PostSeeder extends Seeder
 {
     /**
      * Run the database seeders.
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => __('Administrator'),
-            'email' => 'admin@admin.com',
-        ]);
+        Post::factory()
+            ->count(5)
+            ->create();
     }
 }
